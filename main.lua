@@ -2,7 +2,6 @@ require("jardin.Jardin")
 local ZombieWalk = require('zombies.zombieWalkAnimation')
 local PlanteSelector = require('utils.PlanteSelector')
 local GrilleUtils = require('utils.GrilleUtils')
-local collisionUtils = require('utils.CollisionUtils')
 local plantesActives = {}
 local jardin = {
     x=249,
@@ -10,36 +9,40 @@ local jardin = {
     largeur = 660,
     hauteur = 448
 }
-local peashooter
-local sunflower
 local zombies = {}
 local spawnTimer = 0
 local spawnInterval = 10 
-local timer = 0
+local casesOccupees = {}
+
 PlanteSelector.animationsActives = {}
 
 function love.mousepressed(x, y, button, istouch, presses)
     if button == 1 then
         PlanteSelector.checkClick(x, y)
     end
-
+    
     if button == 2 then
         local typePlante = PlanteSelector.planteSelectionnee
         if typePlante then
             local infoPlante = PlanteSelector.typesDePlantes[typePlante]
             if infoPlante and x >= jardin.x and x <= jardin.x + jardin.largeur and y >= jardin.y and y <= jardin.y + jardin.hauteur then
-                local centreLePlusProche = GrilleUtils.trouverCentreLePlusProche(x, y)
-                if centreLePlusProche then
+                local centreLePlusProche, indiceCase = GrilleUtils.trouverCentreLePlusProche(x, y)
+                -- Vérifie que centreLePlusProche et indiceCase ne sont pas nil
+                if centreLePlusProche and indiceCase and not casesOccupees[indiceCase] then
                     local nouvellePlante = infoPlante.animationClass.new(infoPlante.spritePath)
-                    -- Ajuste la position x et y de la nouvellePlante ici en fonction du centre le plus proche
                     nouvellePlante.x = centreLePlusProche.x - (nouvellePlante.frameWidth * nouvellePlante.scale / 2)
                     nouvellePlante.y = centreLePlusProche.y - (nouvellePlante.frameHeight * nouvellePlante.scale / 2)
                     table.insert(plantesActives, nouvellePlante)
-                    PlanteSelector.planteSelectionnee = nil
+                    casesOccupees[indiceCase] = true
+                elseif not indiceCase then
+                    print("Aucun centre le plus proche trouvé.")
+                else
+                    print("Case déjà occupée.")
                 end
             end
         end
     end
+    
 end
 
 function love.load()

@@ -1,0 +1,1 @@
+local yPositions = {238,338,438,520,615} -- Les cinq positions Y fixes possibles

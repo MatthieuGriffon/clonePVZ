@@ -53,8 +53,6 @@ function PlanteSelector.load()
     table.insert(PlanteSelector.plantes, peashooter)
     table.insert(PlanteSelector.plantes, sunflower)
 
-
-
     -- Check si une plante a été cliqué
     function PlanteSelector.checkClick(x, y)
         for _, plante in ipairs(PlanteSelector.plantes) do

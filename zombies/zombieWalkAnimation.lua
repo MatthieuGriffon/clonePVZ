@@ -5,14 +5,13 @@ local randomUtils = require("utils.randomUtils")
 local ZombieWalk = {}
 ZombieWalk.__index = ZombieWalk
 
-
 -- Constructeur: Crée une nouvelle instance de ZombieWalk
 function ZombieWalk.new(spriteSheetPath, startY)
     local self = setmetatable({}, ZombieWalk)
     self.frameRate = 0.15 -- Vitesse de changement entre les frames de l'animation
     self.currentFrame = 1 -- Frame actuelle de l'animation
     self.timer = 0 -- Chronomètre pour le passage à la frame suivante
-    self.x = 960 -- Position initiale en X (hors écran à droite)
+    self.x = 860 -- Position initiale en X (hors écran à droite)
     self.y = randomUtils.selectRandomY({238, 338, 438, 520, 615}) -- Position en Y choisie aléatoirement parmi les valeurs données
     self.scale = 1.8 -- Facteur d'échelle du sprite
     self.speed = -7.5 -- Vitesse de déplacement vers la gauche
@@ -48,7 +47,6 @@ function ZombieWalk:update(dt)
     self.x = self.x + self.speed * dt -- Déplace le zombie vers la gauche
 end
 
-
 -- Dessine le zombie et sa boîte englobante pour le débogage
 function ZombieWalk:draw()
     -- Dessine le sprite actuel du zombie
@@ -57,10 +55,10 @@ function ZombieWalk:draw()
     end
     
     -- Dessine la boîte englobante autour du zombie pour le débogage
-    love.graphics.setColor(0, 0, 0)
-    local bx, by, bw, bh = self:getBoundingBox()
-    love.graphics.rectangle("line", bx, by, bw, bh)
-    love.graphics.setColor(1, 1, 1) -- Réinitialise la couleur pour les dessins suivants
+    -- love.graphics.setColor(0, 0, 0)
+    -- local bx, by, bw, bh = self:getBoundingBox()
+    -- love.graphics.rectangle("line", bx, by, bw, bh)
+    -- love.graphics.setColor(1, 1, 1) -- Réinitialise la couleur pour les dessins suivants
 end
 
 return ZombieWalk

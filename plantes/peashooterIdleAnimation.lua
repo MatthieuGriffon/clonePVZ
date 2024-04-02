@@ -40,20 +40,21 @@ function PeashooterIdleAnimation:shouldShoot(zombies)
         end
     return false
 end
--- Methode pour dessiner la zone de détection pour le débogage
-function PeashooterIdleAnimation:drawDetectionZone()
-    local detectionDistance = 700
-    local detectionZone = {
-        x = 250,
-        y = self.y -50,
-        width = detectionDistance,
-        height = 80
-    }
+-- -- Methode pour dessiner la zone de détection pour le débogage
+-- function PeashooterIdleAnimation:drawDetectionZone()
+--     local detectionDistance = 700
+--     local detectionZone = {
+--         x = 250,
+--         y = self.y -50,
+--         width = detectionDistance,
+--         height = 80
+--     }
 
-    love.graphics.setColor(1, 0, 0, 0.5)
-    love.graphics.rectangle('fill', detectionZone.x, detectionZone.y, detectionZone.width, detectionZone.height)
-    love.graphics.setColor(1, 1, 1, 1)
-end
+--     love.graphics.setColor(1, 0, 0, 0.5)
+--     love.graphics.rectangle('fill', detectionZone.x, detectionZone.y, detectionZone.width, detectionZone.height)
+--     love.graphics.setColor(1, 1, 1, 1)
+-- end
+
 -- Méthode pour gérer le tir
 function PeashooterIdleAnimation:shoot()
     if self.readyToShoot then
@@ -96,7 +97,7 @@ function PeashooterIdleAnimation:draw()
         pea:draw()
     end
     -- Dessine la zone de détection pour le débogage
-    self:drawDetectionZone()
+    --self:drawDetectionZone()
 end
 -- Classe pour gérer les projectiles (pois)
 Pea = {}
@@ -125,11 +126,11 @@ end
 -- Dessine le pois
 function Pea:draw()
     love.graphics.draw(self.spriteSheet, self.quad, self.x, self.y, 0, self.scale, self.scale)
-    -- Dessine la boîte englobante pour le débogage
-    local bx, by, bw, bh = self:getBoundingBox()
-    love.graphics.setColor(1, 0, 0) -- Couleur rouge pour la boîte englobante
-    love.graphics.rectangle('line', bx, by, bw, bh)
-    love.graphics.setColor(1, 1, 1) -- Réinitialise la couleur à blanc
+    -- -- Dessine la boîte englobante pour le débogage
+    -- local bx, by, bw, bh = self:getBoundingBox()
+    -- love.graphics.setColor(1, 0, 0) -- Couleur rouge pour la boîte englobante
+    -- love.graphics.rectangle('line', bx, by, bw, bh)
+    -- love.graphics.setColor(1, 1, 1) -- Réinitialise la couleur à blanc
 
 end
 -- Met à jour la position du pois et vérifie les collisions

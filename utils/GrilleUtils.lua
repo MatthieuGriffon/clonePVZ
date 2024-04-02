@@ -59,15 +59,17 @@ GrilleUtils.centresCases = {
 function GrilleUtils.trouverCentreLePlusProche(xClic, yClic)
     local centreLePlusProche = nil
     local distanceMin = math.huge
+    local indiceLePlusProche = nil
 
-    for _, centre in ipairs(GrilleUtils.centresCases) do
+    for indice, centre in ipairs(GrilleUtils.centresCases) do
         local distance = math.sqrt((xClic - centre.x)^2 + (yClic - centre.y)^2)
         if distance < distanceMin then
             distanceMin = distance
             centreLePlusProche = centre
+            indiceLePlusProche = indice
         end
     end
 
-    return centreLePlusProche
+    return centreLePlusProche, indiceLePlusProche
 end
 return GrilleUtils
