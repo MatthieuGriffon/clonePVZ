@@ -14,17 +14,15 @@ local peashooter
 local sunflower
 local zombies = {}
 local spawnTimer = 0
-local spawnInterval = 10 -- Génère un nouveau zombie toutes les 5 secondes
+local spawnInterval = 10 
 local timer = 0
 PlanteSelector.animationsActives = {}
 
 function love.mousepressed(x, y, button, istouch, presses)
-    -- Clic gauche : vérification pour la sélection des plantes, peut se faire n'importe où
     if button == 1 then
         PlanteSelector.checkClick(x, y)
     end
 
-    -- Clic droit : placement des plantes, limité à la zone du jardin
     if button == 2 then
         local typePlante = PlanteSelector.planteSelectionnee
         if typePlante then
