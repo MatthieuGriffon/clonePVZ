@@ -13,7 +13,7 @@ To run this project, you'll need to have the LOVE2D framework installed on your 
 Once you have LOVE2D installed, you can clone this repository to your local machine:
 
 ```bash
-git clone https://github.com/yourgithubusername/yourrepositoryname.git
+git clone https://github.com/MatthieuGriffon/clonePVZ
 Navigate to the cloned directory and run the game with LOVE2D:
 
 bash
