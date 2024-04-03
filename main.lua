@@ -4,14 +4,14 @@ local PlanteSelector = require('utils.PlanteSelector')
 local GrilleUtils = require('utils.GrilleUtils')
 local plantesActives = {}
 local jardin = {
-    x=249,
-    y=252,
+    x = 249,
+    y = 252,
     largeur = 660,
     hauteur = 448
 }
 local zombies = {}
 local spawnTimer = 0
-local spawnInterval = 8 
+local spawnInterval = 8
 local casesOccupees = {}
 
 PlanteSelector.animationsActives = {}
@@ -21,16 +21,17 @@ function love.mousepressed(x, y, button)
         PlanteSelector.checkClick(x, y)
         print("Clic gauche, la plante selectionne est : ", PlanteSelector.planteSelectionnee)
     end
-    
+
     if button == 2 then
         local typePlante = PlanteSelector.planteSelectionnee
         if typePlante then
-             -- Si la plante sélectionnée est en cooldown, empêcher le placement
-        if PlanteSelector.cooldownsActifs[typePlante] and PlanteSelector.cooldownsActifs[typePlante] > 0 then
-            return -- Empêche le reste du code de s'exécuter pour ce clic
-        end
+            -- Si la plante sélectionnée est en cooldown, empêcher le placement
+            if PlanteSelector.cooldownsActifs[typePlante] and PlanteSelector.cooldownsActifs[typePlante] > 0 then
+                return -- Empêche le reste du code de s'exécuter pour ce clic
+            end
             local infoPlante = PlanteSelector.typesDePlantes[typePlante]
-            if infoPlante and x >= jardin.x and x <= jardin.x + jardin.largeur and y >= jardin.y and y <= jardin.y + jardin.hauteur then
+            if infoPlante and x >= jardin.x and x <= jardin.x + jardin.largeur and y >= jardin.y and y <= jardin.y +
+                jardin.hauteur then
                 local centreLePlusProche, indiceCase = GrilleUtils.trouverCentreLePlusProche(x, y)
                 -- Vérifie que centreLePlusProche et indiceCase ne sont pas nil
                 if centreLePlusProche and indiceCase and not casesOccupees[indiceCase] then
@@ -40,7 +41,8 @@ function love.mousepressed(x, y, button)
                     table.insert(plantesActives, nouvellePlante)
                     casesOccupees[indiceCase] = true
                     PlanteSelector.cooldownsActifs[typePlante] = PlanteSelector.typesDePlantes[typePlante].cooldown
-                    print ("Plante placée avec succès.", typePlante, "cooldown:", PlanteSelector.cooldownsActifs[typePlante])
+                    print("Plante placée avec succès.", typePlante, "cooldown:",
+                        PlanteSelector.cooldownsActifs[typePlante])
                 elseif not indiceCase then
                     print("Aucun centre le plus proche trouvé.")
                 else
@@ -48,19 +50,15 @@ function love.mousepressed(x, y, button)
                 end
             end
         end
-    end 
+    end
 end
 
 function love.load()
-    grandePolice = love.graphics.newFont(20)
     math.randomseed(os.time())
     love.window.setTitle("Plants vs Zombies - Jardin")
     love.window.setMode(1300, 900)
-    Jardin.init(
-        12, 5, 60, 60,
-        "jardin/assets/spriteSheet/jardin.png",
-         1, 1, 448, 193,
-        247, 245, 247, 170)
+
+    Jardin.init(12, 5, 60, 60, "jardin/assets/spriteSheet/jardin.png", 1, 1, 448, 193, 247, 245, 247, 170)
     PlanteSelector.load()
 end
 
